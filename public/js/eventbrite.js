@@ -1,7 +1,5 @@
 /*
-
 fetch the data (query from the API)
-
 */
 
 class EventBrite {
@@ -14,19 +12,18 @@ class EventBrite {
 
   // Get the Events from API
 
-  async queryAPI(eventName, category, location) {
-    const eventsResponse = await fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=${eventName}&sort_by=${
-        this.orderby
-      }&categories=${category}&location.address=${location}&token=${
-        this.auth_token
-      }`
-    ); //handle the location
-
+  async queryAPI(eventName, category, location, localWithin) {
+    const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${eventName}&expand=organizer,venue&sort_by=${
+      this.orderby
+    }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${
+      this.auth_token
+    }`;
+    const eventsResponse = await fetch(getURL); //handle the location
+    console.log("getURL", getURL);
     // Wait for response and return as json
 
     const events = await eventsResponse.json();
-
+    console.log("events of query", events);
     return {
       events
     };

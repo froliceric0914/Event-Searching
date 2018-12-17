@@ -1,7 +1,5 @@
 /* 
-
 print out the results
-
 */
 
 class UI {
@@ -22,12 +20,11 @@ class UI {
 
   displayEvents(events) {
     // Build the template
-
     let HTMLTemplate = "";
 
     // Loop events and print the result
-
     events.forEach(eventInfo => {
+      console.log("evnetInfo", eventInfo);
       HTMLTemplate += `
                     <div class="col-md-4 mt-4">
                          <div class="card">
@@ -38,6 +35,7 @@ class UI {
                                        : ""
                                    }">
                               </div>
+
                               <div class="card-body">
                                    <div class="card-text">
                                         <h2 class="text-center card-title">${
@@ -48,11 +46,13 @@ class UI {
                                           0,
                                           200
                                         )}...</p>
-                                        <span class="badge badge-primary">Capacity: ${
-                                          eventInfo.capacity
-                                        }</span>
+                                      
                                         <span class="badge badge-secondary">Date & Time: ${
                                           eventInfo.start.local
+                                        }</span>
+
+                                        <span class="badge badge-secondary">Location: ${
+                                          eventInfo.venue.address.address_1
                                         }</span>
 
                                         <a href="${
@@ -68,14 +68,15 @@ class UI {
 
     this.result.innerHTML = HTMLTemplate;
   }
+
   // Print the categories
   printCategories() {
     const categoriesList = eventbrite
       .getCategoriesAPI()
       .then(categories => {
         const categoriesList = categories.categories.categories;
-        console.log(categoriesList);
-        const categoriesSelect = document.querySelector("#category"); //jQuery????
+        // console.log("categoriestList", categoriesList);
+        const categoriesSelect = document.querySelector("#category");
 
         // Inserts categories into select
         categoriesList.forEach(category => {
@@ -90,6 +91,8 @@ class UI {
       })
       .catch(error => console.log(error));
   }
+
+  // report the error of empty input
 
   // Displays a message
   printMessage(message, className) {
