@@ -9,11 +9,12 @@ document.getElementById("submitBtn").addEventListener("click", e => {
   e.preventDefault();
 
   // get values from form $("event-name")
-  const eventName = document.getElementById("event-name").value;
-  const category = document.getElementById("category").value;
-  const location = document.getElementById("location").value;
-  const localWithin = document.getElementById("local-within").value;
+  const eventName = $("#event-name").val();
+  const category = $("#category").val();
+  const location = $("#location").val();
+  const localWithin = $("#local-within").val();
   //   console.log(eventName + " : " + category + ", " + location);
+  console.log("test", localWithin);
 
   if (eventName !== "") {
     // Query Event Brite API
